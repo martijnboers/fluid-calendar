@@ -5,6 +5,10 @@ services:
       - "3000:3000"
     env_file:
       - .env
+    environment:
+      - NODE_EXTRA_CA_CERTS=/app/ca-bundle.pem
+    volumes:
+      - /home/martijn/Nix/secrets/keys/hadouken.crt:/app/ca-bundle.pem:ro
     depends_on:
       db:
         condition: service_healthy

@@ -109,6 +109,7 @@ export async function loginToCalDAVServer(
 ) {
   try {
     await client.login();
+    console.log(client)
     logger.info(
       "Successfully logged in to CalDAV server",
       { serverUrl, username },

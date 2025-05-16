@@ -57,7 +57,8 @@ export async function POST(request: NextRequest) {
       try {
         await loginToCalDAVServer(client, serverUrl, username);
       } catch (loginError) {
-        return NextResponse.json(
+        console.log(loginError)
+	return NextResponse.json(
           {
             error:
               "Failed to authenticate with CalDAV server. Please check your credentials.",
