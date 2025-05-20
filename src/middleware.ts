@@ -1,6 +1,7 @@
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
+import { logger } from "./lib/logger";
 
 // List of public routes that don't require authentication
 const publicRoutes = [
@@ -17,6 +18,7 @@ const publicRoutes = [
 
 // Routes that only admins can access
 const adminRoutes = ["/admin", "/logs", "/settings/system"];
+const LOG_SOURCE = "middleware";
 
 /**
  * Get the homepage setting directly from the API
@@ -55,6 +57,8 @@ async function getHomepageSetting(request: NextRequest): Promise<boolean> {
  */
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  logger.info("pathname", { pathname }, LOG_SOURCE);
 
   // Special handling for the root path based on the disableHomepage setting
   if (pathname === "/") {
